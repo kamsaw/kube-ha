@@ -4,11 +4,38 @@
 
 ![aaa](https://user-images.githubusercontent.com/38559302/233606228-ee94ec24-b7a9-430d-9a4b-781aae2793cd.jpg)
 
-# Container Runtimes
-- [https://kubernetes.io/docs/setup/production-environment/container-runtimes/](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
-- [https://docs.docker.com/engine/install/debian/](https://docs.docker.com/engine/install/debian/)
-- [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+# preinstall
 ### => master-n, node-n
+```
+adduser kube
+ssh -> master-n <> master-n
+ssh -> master-n > node-n
+```
+```
+apt install htop mc systemd-timesyncd
+
+apt install hyperv-daemons
+```
+```
+nano /etc/hosts
+---
+192.168.2.1 k8s1-controlplane01
+192.168.2.2 k8s1-controlplane02
+192.168.2.3 k8s1-node01
+192.168.2.4 k8s1-node02
+192.168.2.5 k8s1-node03
+192.168.2.6 k8s1-controlplane03
+192.168.2.7 k8s1-controlplane-vip
+```
+```
+dpkg-reconfigure locales
+nano ~/.bashrc
+export PATH=$PATH:/usr/sbin
+
+swapoff -a
+nano /etc/fstab // komentujemy swap_1
+reboot
+```
 ```
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
@@ -33,6 +60,12 @@ lsmod | grep overlay
 ```
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
+
+# Container Runtimes
+- [https://kubernetes.io/docs/setup/production-environment/container-runtimes/](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
+- [https://docs.docker.com/engine/install/debian/](https://docs.docker.com/engine/install/debian/)
+- [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+### => master-n, node-n
 ```
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
@@ -71,11 +104,6 @@ version = 2
     SystemdCgroup = true
 
 systemctl restart containerd
-```
-```
-swapoff -a
-nano /etc/fstab // komentujemy swap_1
-reboot
 ```
 # Kubeadm
 - [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
