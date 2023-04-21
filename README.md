@@ -107,13 +107,13 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 # Add controlplane
 ```
-kubeadm join k8s1-controlplane-vip:8443 --token spkxtq.rhek8wzs7pin0jk5 \
-        --discovery-token-ca-cert-hash sha256:33521a793005523c9a8e887269ed1d1640a9f5b2575fd78bdafd3734363bd045 \
-        --control-plane --certificate-key a5d770ca5d14fc249605aad8e097a94c301f61b5219e428799f6637706befdbd
+kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
+        --discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045 \
+        --control-plane --certificate-key a5d170c15d14fc249605aad81097a94c301f61b5219e428799f16377061efdbd
 ```
 # Add worker
 ```
-kubeadm join k8s1-controlplane-vip:8443 --token uubbza.6n434aitbgsutgcn \
-		--discovery-token-ca-cert-hash sha256:33521a793005523c9a8e887269ed1d1640a9f5b2575fd78bdafd3734363bd045
+kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
+		--discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045
 ```
 
