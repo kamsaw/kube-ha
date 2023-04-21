@@ -154,4 +154,28 @@ sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sud
 ip route
 ??? ip route flush proto bird
 ```
+# Upgrade
+```
+apt update
+apt-cache madison kubeadm
+
+kubectl drain <node-to-drain> --ignore-daemonsets
+
+apt-mark unhold kubeadm && \
+apt-get install -y kubeadm=1.27.1-00 && \
+apt-mark hold kubeadm
+
+kubeadm upgrade plan
+
+kubeadm upgrade node
+// lub dla pierwszego mastera
+kubeadm upgrade apply
+
+apt-mark unhold kubelet kubectl && \
+apt-get install -y kubelet=1.27.1-00 kubectl=1.27.1-00 && \
+apt-mark hold kubelet kubectl
+
+kubectl uncordon <node-to-uncordon>
+
+```
 
