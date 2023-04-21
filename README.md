@@ -127,7 +127,6 @@ sudo apt-mark hold kubelet kubeadm kubectl
 sudo kubeadm init --control-plane-endpoint=k8s1-controlplane-vip:8443 --upload-certs --v=5
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml
 ```
-> w przypadku błedów można zrestetować instalacje **sudo kubeadm reset**
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -143,5 +142,16 @@ kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
 ```
 kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
 		--discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045
+```
+
+# Reset install
+```
+sudo kubeadm reset
+rm /etc/cni/net.d/*
+rm -R $HOME/.kube
+iptables --list
+sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sudo iptables -X
+ip route
+??? ip route flush proto bird
 ```
 
