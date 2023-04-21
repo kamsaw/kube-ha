@@ -175,6 +175,9 @@ apt-mark unhold kubelet kubectl && \
 apt-get install -y kubelet=1.27.1-00 kubectl=1.27.1-00 && \
 apt-mark hold kubelet kubectl
 
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
 kubectl uncordon <node-to-uncordon>
 
 ```
