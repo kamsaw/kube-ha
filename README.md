@@ -155,6 +155,7 @@ ip route
 ??? ip route flush proto bird
 ```
 # Upgrade
+- [https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 ```
 apt update
 apt-cache madison kubeadm
