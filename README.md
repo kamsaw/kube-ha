@@ -5,11 +5,11 @@
 ![aaa](https://user-images.githubusercontent.com/38559302/233606228-ee94ec24-b7a9-430d-9a4b-781aae2793cd.jpg)
 
 # preinstall
-### => master-n, node-n
+### => master-n, worker-n
 ```
 adduser kube
 ssh -> master-n <> master-n
-ssh -> master-n > node-n
+ssh -> master-n > worker-n
 ```
 ```
 apt install htop mc systemd-timesyncd
@@ -186,7 +186,7 @@ sudo systemctl enable haproxy --now
 - [https://kubernetes.io/docs/setup/production-environment/container-runtimes/](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
 - [https://docs.docker.com/engine/install/debian/](https://docs.docker.com/engine/install/debian/)
 - [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
-### => master-n, node-n
+### => master-n, worker-n
 ```
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
@@ -228,7 +228,7 @@ systemctl restart containerd
 ```
 # Kubeadm
 - [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-### => master-n, node-n
+### => master-n, worker-n
 > kopia w razie awarii dostepności klucza
 - [https://web.archive.org/web/20230223152417/https://packages.cloud.google.com/apt/doc/apt-key.gpg](https://web.archive.org/web/20230223152417/https://packages.cloud.google.com/apt/doc/apt-key.gpg)
 ```
@@ -243,28 +243,33 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ```
 # Create cluster
 - [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-### => master-n
+### => master-1
 ```
 sudo kubeadm init --control-plane-endpoint=k8s1-controlplane-vip:8443 --upload-certs --v=5
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml
 ```
 # Add controlplane
+### => master-2,3
 ```
 kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
         --discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045 \
         --control-plane --certificate-key a5d170c15d14fc249605aad81097a94c301f61b5219e428799f16377061efdbd
 ```
 # Add worker
+### => worker-n
 ```
 kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
 		--discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045
 ```
 # Add configs
+### => master-n
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
+```
+### => master-n, worker-n
+```
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
 
