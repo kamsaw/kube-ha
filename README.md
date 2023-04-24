@@ -12,7 +12,7 @@ ssh -> master-n <> master-n
 ssh -> master-n > worker-n
 ```
 ```
-apt install htop mc systemd-timesyncd
+apt install htop mc systemd-timesyncd etcd-client
 
 apt install hyperv-daemons
 ```
