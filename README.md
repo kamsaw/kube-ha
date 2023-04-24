@@ -252,6 +252,8 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
 # Add controlplane
 ```
