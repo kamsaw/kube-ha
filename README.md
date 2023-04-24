@@ -12,6 +12,10 @@ ssh -> master-n <> master-n
 ssh -> master-n > node-n
 ```
 ```
+nano ~/.bashrc
+alias k=kubectl
+```
+```
 apt install htop mc systemd-timesyncd
 
 apt install hyperv-daemons
