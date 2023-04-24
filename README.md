@@ -62,6 +62,7 @@ lsmod | grep overlay
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
 # Keepalive
+### => master-n
 ```
 sudo apt install keepalived
 ```
@@ -120,10 +121,65 @@ vrrp_instance VI_1 {
     }
 }
 ```
+> SLAVE master1=>255, master2=>254, master3=>253
+```
+sudo systemctl enable keepalived --now
+```
 
 # HAProxy
+### => master-n
 ```
 apt install haproxy
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg-org
+```
+```
+sudo nano /etc/haproxy/haproxy.cfg
+
+global
+    log /dev/log local0 info alert
+    log /dev/log local1 notice alert
+    daemon
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 1
+    timeout http-request    10s
+    timeout queue           20s
+    timeout connect         5s
+    timeout client          20s
+    timeout server          20s
+    timeout http-keep-alive 10s
+    timeout check           10s
+
+#---------------------------------------------------------------------
+# apiserver frontend which proxys to the masters
+#---------------------------------------------------------------------
+frontend apiserver
+    bind *:8443 mss 1500
+    mode tcp
+    option tcplog
+    default_backend apiserver
+#---------------------------------------------------------------------
+# round robin balancing for apiserver
+#---------------------------------------------------------------------
+backend apiserver
+    option httpchk GET /healthz
+    http-check expect status 200
+    mode tcp
+    option ssl-hello-chk
+    balance     roundrobin
+        server k8s1-controlplane01 192.168.2.1:6443 check fall 3 rise 2
+        server k8s1-controlplane02 192.168.2.2:6443 check fall 3 rise 2
+        server k8s1-controlplane03 192.168.2.3:6443 check fall 3 rise 2
+```
+```
+sudo systemctl enable haproxy --now
 ```
 
 # Container Runtimes
