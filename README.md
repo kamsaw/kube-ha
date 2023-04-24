@@ -268,6 +268,27 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
+# Generate new token
+> for add controlplane
+```
+// generate --certificate-key string
+kubeadm init phase upload-certs --upload-certs
+kubeadm token create --print-join-command
+
+kubeadm join k8s1-controlplane-vip:8443 --token ??? \
+        --discovery-token-ca-cert-hash sha256:??? \
+        --control-plane --certificate-key ???
+```
+> for add worker
+```
+kubeadm token create --print-join-command
+```
+> discovery-token-ca-cert-hash
+```
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
+   openssl dgst -sha256 -hex | sed 's/^.* //'
+```
+
 ### => master-n, worker-n
 ```
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
