@@ -243,17 +243,10 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ```
 # Create cluster
 - [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-### => master-n, node-n
+### => master-n
 ```
 sudo kubeadm init --control-plane-endpoint=k8s1-controlplane-vip:8443 --upload-certs --v=5
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml
-```
-```
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
 # Add controlplane
 ```
@@ -265,6 +258,14 @@ kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
 ```
 kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
 		--discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045
+```
+# Add configs
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
 
 # Reset install
