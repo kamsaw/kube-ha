@@ -61,6 +61,70 @@ lsmod | grep overlay
 ```
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
+# Keepalive
+```
+sudo apt install keepalived
+```
+```
+sudo nano /etc/keepalived/check_apiserver.sh
+
+#!/bin/sh
+APISERVER_VIP=192.168.2.7
+APISERVER_DEST_PORT=6443
+
+errorExit() {
+    echo "*** $*" 1>&2
+    exit 1
+}
+
+curl --silent --max-time 2 --insecure https://localhost:${APISERVER_DEST_PORT}/ -o /dev/null || errorExit "Error GET https://localhost:${APISERVER_DEST_PORT}/"
+if ip addr | grep -q ${APISERVER_VIP}; then
+    curl --silent --max-time 2 --insecure https://${APISERVER_VIP}:${APISERVER_DEST_PORT}/ -o /dev/null || errorExit "Error GET https://${APISERVER_VIP}:${APISERVER_DEST_PORT}/"
+fi
+```
+```
+sudo chmod +x /etc/keepalived/check_apiserver.sh
+sudo cp /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf-org
+sudo sh -c '> /etc/keepalived/keepalived.conf'
+```
+```
+sudo nano /etc/keepalived/keepalived.conf
+
+! /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+global_defs {
+    router_id LVS_DEVEL
+}
+vrrp_script check_apiserver {
+  script "/etc/keepalived/check_apiserver.sh"
+  interval 3
+  weight -2
+  fall 10
+  rise 2
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface eth0
+    virtual_router_id 151
+    priority 255
+    authentication {
+        auth_type PASS
+        auth_pass P@##D321!
+    }
+    virtual_ipaddress {
+        192.168.2.7/24
+    }
+    track_script {
+        check_apiserver
+    }
+}
+```
+
+# HAProxy
+```
+apt install haproxy
+```
 
 # Container Runtimes
 - [https://kubernetes.io/docs/setup/production-environment/container-runtimes/](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
