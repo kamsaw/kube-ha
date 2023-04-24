@@ -4,6 +4,20 @@
 
 ![aaa](https://user-images.githubusercontent.com/38559302/233606228-ee94ec24-b7a9-430d-9a4b-781aae2793cd.jpg)
 
+> ETCD Failure Tolerance
+
+| Cluster Size | Majority | Failure Tolerance |
+| ------------ | -------- | ----------------- |
+| 1 | 1 | 0 |
+| 2 | 2 | 0 |
+| - 3 - | - 2 - | - 1 - |
+| 4 | 3 | 1 |
+| 5 | 3 | 2 |
+| 6 | 4 | 2 |
+| 7 | 4 | 3 |
+| 8 | 5 | 3 |
+| 9 | 5 | 4 |
+
 # preinstall
 ### => master-n, worker-n
 ```
