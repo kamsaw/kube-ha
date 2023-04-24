@@ -365,4 +365,21 @@ sudo systemctl restart kubelet
 kubectl uncordon <node-to-uncordon>
 
 ```
+# ETCD help
+```
+ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/etcd/server.crt  --key=/etc/kubernetes/pki/etcd/server.key \
+			--cacert=/etc/kubernetes/pki/etcd/ca.crt   --endpoints=https://192.168.1.1:2379 \
+				endpoint status --write-out=table
+
+ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/etcd/server.crt  --key=/etc/kubernetes/pki/etcd/server.key \
+			--cacert=/etc/kubernetes/pki/etcd/ca.crt --endpoints=https://192.168.1.1:2379 \
+			member list --write-out=table		
+			
+ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/etcd/server.crt  --key=/etc/kubernetes/pki/etcd/server.key \
+			--cacert=/etc/kubernetes/pki/etcd/ca.crt    endpoint health --cluster
+			
+ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/etcd/server.crt  --key=/etc/kubernetes/pki/etcd/server.key \
+			--cacert=/etc/kubernetes/pki/etcd/ca.crt  member remove ???	
+```
+
 
