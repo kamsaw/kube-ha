@@ -275,6 +275,14 @@ sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sud
 ip route
 ??? ip route flush proto bird
 ```
+# Delete node
+```
+kubectl get nodes
+kubectl describe node <node name>
+kubectl drain node <node name>
+kubectl delete node <node name>
+```
+
 # Upgrade
 - [https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 ```
