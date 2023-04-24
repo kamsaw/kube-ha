@@ -282,6 +282,10 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
+### => master-n, worker-n
+```
+crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
+```
 # Generate new token
 > for add controlplane
 ```
@@ -301,11 +305,6 @@ kubeadm token create --print-join-command
 ```
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
    openssl dgst -sha256 -hex | sed 's/^.* //'
-```
-
-### => master-n, worker-n
-```
-crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
 
 # Reset install
