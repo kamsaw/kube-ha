@@ -12,10 +12,6 @@ ssh -> master-n <> master-n
 ssh -> master-n > node-n
 ```
 ```
-nano ~/.bashrc
-alias k=kubectl
-```
-```
 apt install htop mc systemd-timesyncd
 
 apt install hyperv-daemons
@@ -35,6 +31,7 @@ nano /etc/hosts
 dpkg-reconfigure locales
 nano ~/.bashrc
 export PATH=$PATH:/usr/sbin
+alias k=kubectl
 
 swapoff -a
 nano /etc/fstab // komentujemy swap_1
