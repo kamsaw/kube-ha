@@ -282,6 +282,18 @@ iptables --list
 sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sudo iptables -X
 ip route
 ??? ip route flush proto bird
+systemctl daemon-reload
+systemctl restart containerd
+--
+kubeadm reset -f
+sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube* containerd.io
+sudo apt-get autoremove  
+rm -rf /etc/cni /etc/kubernetes /var/lib/dockershim /var/lib/etcd /var/lib/kubelet /var/run/kubernetes ~/.kube/* /var/calio /var/lib/containerd
+iptables -F && iptables -X
+iptables -t nat -F && iptables -t nat -X
+iptables -t raw -F && iptables -t raw -X
+iptables -t mangle -F && iptables -t mangle -X
+systemctl daemon-reload
 ```
 # Delete node
 ```
