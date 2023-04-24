@@ -253,13 +253,13 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/
 ```
 kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
         --discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045 \
-        --control-plane --certificate-key a5d170c15d14fc249605aad81097a94c301f61b5219e428799f16377061efdbd
+        --control-plane --certificate-key a5d170c15d14fc249605aad81097a94c301f61b5219e428799f16377061efdbd --v=5
 ```
 # Add worker
 ### => worker-n
 ```
 kubeadm join k8s1-controlplane-vip:8443 --token uu1bza.61434ait1gsutgcn \
-		--discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045
+		--discovery-token-ca-cert-hash sha256:33121a793005123c9a8e887269ed1d1140a9f5b2575fd78bdafd3734363bd045 --v=5
 ```
 # Add configs
 ### => master-n
@@ -277,7 +277,7 @@ kubeadm token create --print-join-command
 
 kubeadm join k8s1-controlplane-vip:8443 --token ??? \
         --discovery-token-ca-cert-hash sha256:??? \
-        --control-plane --certificate-key ???
+        --control-plane --certificate-key ??? --v=5
 ```
 > for add worker
 ```
