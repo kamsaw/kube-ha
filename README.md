@@ -1,6 +1,6 @@
 # Kubernetes Highly Available
-- [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/)
-- [https://www.linuxtechi.com/setup-highly-available-kubernetes-cluster-kubeadm/](https://www.linuxtechi.com/setup-highly-available-kubernetes-cluster-kubeadm/)
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+- https://www.linuxtechi.com/setup-highly-available-kubernetes-cluster-kubeadm/
 
 ![aaa](https://user-images.githubusercontent.com/38559302/233606228-ee94ec24-b7a9-430d-9a4b-781aae2793cd.jpg)
 
@@ -197,9 +197,9 @@ sudo systemctl enable haproxy --now
 ```
 
 # Container Runtimes
-- [https://kubernetes.io/docs/setup/production-environment/container-runtimes/](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
-- [https://docs.docker.com/engine/install/debian/](https://docs.docker.com/engine/install/debian/)
-- [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+- https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+- https://docs.docker.com/engine/install/debian/
+- https://docs.docker.com/engine/install/ubuntu/
 ### => master-n, worker-n
 ```
 sudo apt-get update
@@ -241,7 +241,7 @@ version = 2
 systemctl restart containerd
 ```
 # Kubeadm
-- [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 ### => master-n, worker-n
 > kopia w razie awarii dostepności klucza
 - [https://web.archive.org/web/20230223152417/https://packages.cloud.google.com/apt/doc/apt-key.gpg](https://web.archive.org/web/20230223152417/https://packages.cloud.google.com/apt/doc/apt-key.gpg)
@@ -256,8 +256,8 @@ sudo apt-get install kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 # Create cluster
-- [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-- [https://kubernetes.io/docs/concepts/cluster-administration/addons/](https://kubernetes.io/docs/concepts/cluster-administration/addons/)
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+- https://kubernetes.io/docs/concepts/cluster-administration/addons/
 ### => master-1
 ```
 sudo kubeadm init --control-plane-endpoint=k8s1-controlplane-vip:8443 --upload-certs --v=5
@@ -287,6 +287,12 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
+
+# Add Ingress Controller
+- https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+```
+```
+
 # Generate new token
 > for add controlplane
 ```
@@ -339,7 +345,7 @@ kubectl delete node <node name>
 ```
 
 # Upgrade
-- [https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
 ```
 apt update
 apt-cache madison kubeadm
