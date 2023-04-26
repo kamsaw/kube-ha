@@ -367,6 +367,7 @@ spec:
     requests:
       storage: 2Gi
 ---
+k get pvc
 
 // usuwanie
 helm uninstall nfs-subdir-external-provisioner
