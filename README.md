@@ -293,6 +293,14 @@ crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 - https://github.com/kubernetes/dashboard
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+
+// change the .spec.type to NodePort
+kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+
+kubectl create serviceaccount admin-user -n kubernetes-dashboard
+kubectl create clusterrolebinding dashboard-admin -n kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=admin-user
+kubectl -n kubernetes-dashboard create token admin-user
+
 kubectl proxy
 ```
 
