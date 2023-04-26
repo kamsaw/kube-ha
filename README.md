@@ -353,6 +353,21 @@ nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
 --set replicaCount=1 \
 --set storageClass.defaultClass=true
 
+nano pvc.yaml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: partioner
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: k8s1-share001
+  resources:
+    requests:
+      storage: 2Gi
+---
+
 // usuwanie
 helm uninstall nfs-subdir-external-provisioner
 ```
