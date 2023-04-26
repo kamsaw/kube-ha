@@ -288,6 +288,14 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 ```
 
+# Kubernetes Dashboard
+- https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+- https://github.com/kubernetes/dashboard
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl proxy
+```
+
 # Add Ingress Controller
 - https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
 - https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
