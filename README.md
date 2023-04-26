@@ -290,6 +290,9 @@ crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 
 # Add Ingress Controller
 - https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+- https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
+![nginx](https://user-images.githubusercontent.com/38559302/234502108-4c8029aa-d289-472a-9cf7-3e7611455af8.png)
+
 ```
 ```
 
