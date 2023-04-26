@@ -304,6 +304,12 @@ kubectl -n kubernetes-dashboard create token admin-user
 kubectl proxy
 ```
 
+# Portainer
+- https://docs.portainer.io/start/install/server/kubernetes/baremetal
+```
+kubectl apply -n portainer -f https://downloads.portainer.io/ee2-18/portainer.yaml
+```
+
 # Add Ingress Controller
 - https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
 - https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
