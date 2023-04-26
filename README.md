@@ -298,7 +298,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/a
 kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
 
 kubectl create serviceaccount admin-user -n kubernetes-dashboard
-kubectl create clusterrolebinding dashboard-admin -n kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=admin-user
+kubectl create clusterrolebinding dashboard-admin -n kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user
 kubectl -n kubernetes-dashboard create token admin-user
 
 kubectl proxy
