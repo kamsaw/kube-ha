@@ -316,6 +316,45 @@ kubectl proxy
 - https://docs.portainer.io/start/install/server/kubernetes/baremetal
 ```
 kubectl apply -n portainer -f https://downloads.portainer.io/ee2-18/portainer.yaml
+lub
+
+helm repo add portainer https://portainer.github.io/k8s/
+helm repo update
+
+helm upgrade --install --create-namespace -n portainer portainer portainer/portainer --set enterpriseEdition.enabled=false --set tls.force=true
+
+=> master-n, worker-n
+apt-get install nfs-common
+
+=> k8s1-nfs
+sudo apt-get install nfs-kernel-server
+
+sudo mkdir -p /home/k8s1-share001
+sudo chown nobody:nogroup /home/k8s1-share001
+sudo chmod g+rwxs /home/k8s1-share001
+
+nano /etc/exports
+/home/k8s1-share001 192.168.72.81(rw,sync,no_root_squash,no_subtree_check) 192.168.72.82(rw,sync,no_root_squash,no_subtree_check) 192.168.72.83(rw,sync,no_root_squash,no_subtree_check) 192.168.72.84(rw,sync,no_root_squash,no_subtree_check) 192.168.72.85(rw,sync,no_root_squash,no_subtree_check) 192.168.72.86(rw,sync,no_root_squash,no_subtree_check)
+
+sudo exportfs -av 
+
+/sbin/showmount -e localhost
+/sbin/showmount -e 192.168.72.88
+
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+helm repo list
+
+helm install nfs-subdir-external-provisioner \
+nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+--set nfs.server=192.168.72.88 \
+--set nfs.path=/home/k8s1-share001 \
+--set storageClass.onDelete=true \
+--set storageClass.name=k8s1-share001 \
+--set replicaCount=1 \
+--set storageClass.defaultClass=true
+
+// usuwanie
+helm uninstall nfs-subdir-external-provisioner
 ```
 
 # Add Ingress Controller
