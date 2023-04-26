@@ -313,7 +313,10 @@ kubectl apply -n portainer -f https://downloads.portainer.io/ee2-18/portainer.ya
 # Add Ingress Controller
 - https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
 - https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
+- https://www.dbi-services.com/blog/setup-an-nginx-ingress-controller-on-kubernetes/
 ![nginx](https://user-images.githubusercontent.com/38559302/234502108-4c8029aa-d289-472a-9cf7-3e7611455af8.png)
+![0_7970PSI1KE6Qskin](https://user-images.githubusercontent.com/38559302/234670940-a81c66f7-dc27-453a-8f4a-759881bf2f81.png)
+
 
 ```
 ```
