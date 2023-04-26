@@ -35,10 +35,10 @@ nano /etc/hosts
 ---
 192.168.2.1 k8s1-controlplane01
 192.168.2.2 k8s1-controlplane02
-192.168.2.3 k8s1-node01
-192.168.2.4 k8s1-node02
-192.168.2.5 k8s1-node03
-192.168.2.6 k8s1-controlplane03
+192.168.2.3 k8s1-controlplane03
+192.168.2.4 k8s1-node01
+192.168.2.5 k8s1-node02
+192.168.2.6 k8s1-node03
 192.168.2.7 k8s1-controlplane-vip
 ```
 ```
