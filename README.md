@@ -382,6 +382,7 @@ helm uninstall nfs-subdir-external-provisioner
 
 
 ```
+kubectl patch svc service/nginx-ingress-nginx-ingress-controller -n nginx-ingress -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.72.87"]}}'
 ```
 
 # Generate new token
