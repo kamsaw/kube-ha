@@ -373,6 +373,10 @@ k get pvc
 
 // usuwanie
 helm uninstall nfs-subdir-external-provisioner
+
+// aktualizacja
+helm repo update
+helm upgrade -n portainer portainer portainer/portainer
 ```
 
 # Add Ingress Controller
