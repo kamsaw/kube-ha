@@ -26,7 +26,7 @@ ssh -> master-n <> master-n
 ssh -> master-n > worker-n
 ```
 ```
-apt install htop mc systemd-timesyncd etcd-client
+apt install htop mc systemd-timesyncd etcd-client bash-completion
 
 apt install hyperv-daemons
 ```
@@ -45,7 +45,9 @@ nano /etc/hosts
 dpkg-reconfigure locales
 nano ~/.bashrc
 export PATH=$PATH:/usr/sbin
+source <(kubectl completion bash)
 alias k=kubectl
+complete -o default -F __start_kubectl k
 
 swapoff -a
 nano /etc/fstab // komentujemy swap_1
