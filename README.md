@@ -487,4 +487,47 @@ ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/etcd/server.crt  --key=/etc/kub
 			--cacert=/etc/kubernetes/pki/etcd/ca.crt  member remove ???	
 ```
 
+# renew kube cert in cron
+```
+/usr/skrypty/renew-kube.sh
+---
+#!/bin/bash
+echo "=============================================================================="
+echo "======= $(date +"%Y-%m-%d %H:%M:%S")"
+kubeadm certs check-expiration
+kubeadm certs renew all
+systemctl restart kubelet
+cp /root/.kube/config /root/.kube/.old-$(date --iso)-config
+cp /etc/kubernetes/admin.conf /root/.kube/config
+kubeadm certs check-expiration
+echo "=============================================================================="
+---
+chmod +x /usr/skrypty/renew-kube.sh
 
+sudo /usr/skrypty/renew-kube.sh &>> /usr/skrypty/renew-kube.log
+cat /usr/skrypty/renew-kube.log
+
+// raz w miesiącu (1 dzien w miesiącu o 00:00)
+crontab -e
+0 0 1 * * sudo /usr/skrypty/renew-kube.sh &>> /usr/skrypty/renew-kube.log
+```
+```
+/usr/skrypty/update-kubeconfig.sh
+---
+#!/bin/bash
+echo "=============================================================================="
+echo "======= $(date +"%Y-%m-%d %H:%M:%S")"
+cp /root/.kube/config /root/.kube/.old-$(date --iso)-config
+cp /etc/kubernetes/admin.conf /root/.kube/config
+echo "done"
+echo "=============================================================================="
+---
+chmod +x /usr/skrypty/update-kubeconfig.sh
+
+sudo /usr/skrypty/update-kubeconfig.sh &>> /usr/skrypty/update-kubeconfig.log
+cat /usr/skrypty/update-kubeconfig.log
+
+// raz w miesiącu (2 dzien w miesiacu o 00:30)
+crontab -e
+30 0 2 * * sudo /usr/skrypty/update-kubeconfig.sh &>> /usr/skrypty/update-kubeconfig.log
+```
